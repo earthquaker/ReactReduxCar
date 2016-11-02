@@ -1,0 +1,21 @@
+#checkout-container {
+  .panel-default {
+    .panel-heading {
+      background:#FFF;
+      background-image:none;
+      font-weight:bold;
+    }
+  }
+  .priceInfo {
+    text-align:right;
+    margin:0;
+    .priceTotal {
+      font-size:22px;
+      font-weight:bold;
+    }
+  }
+  .amount {
+    width:56px;
+    margin-right:5px;
+  }
+}

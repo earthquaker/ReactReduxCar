@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import '../styles/App.scss';
 
-import Header from './checkout/Header.react';
-import Container from './checkout/Container.react';
+import CheckoutHeader from './checkout/CheckoutHeader.react';
+import CheckoutContainer from './checkout/CheckoutContainer.react';
 
 class App extends Component {
   render() {
     return (
         <div>
-            <Header />
-            <Container />
+            <CheckoutHeader />
+            <CheckoutContainer />
         </div>
     );
   }
