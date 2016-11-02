@@ -1,30 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as cartActions from '../../actions/cartActions';
 
 class ViewCart extends Component {
 
+    updateCart(value, key) {
+        this.props.updateProdAmount(value, key);
+        this.props.updateTotalPrice();
+    }
+
     render() {
 
-        const mappedCart = this.props.products.map((product, index)=> {
+        const cart = this.props.cart;
+
+        const mappedCart = Object.keys(cart).map((product)=> {
             return (
-                <tbody key={index}>
-                <tr>
-                    <td>
-                        <img src={product.image} alt="" width="120px" />
-                    </td>
-                    <td>{product.title}</td>
-                    <td>
-                        <div className="form-inline">
-                            <input type="number" className="form-control amount" placeholder="0" defaultValue={product.amount} />
-                            st
-                        </div>
-                    </td>
-                    <td>x</td>
-                    <td>{product.price}</td>
-                    <td>=</td>
-                    <td>{product.price * product.amount}</td>
-                    <td><b>X</b></td>
-                </tr>
+                <tbody key={product}>
+                    <tr>
+                        <td>
+                            <img className="well" src={cart[product].image} alt="" width="120px" />
+                        </td>
+                        <td>
+                            <p className="product-title">{cart[product].title}</p>
+                            <p className="product-description">{cart[product].desc}</p>
+                        </td>
+                        <td>
+                            <div className="form-inline">
+                                <input type="number" className="form-control amount" placeholder="0" defaultValue={cart[product].amount} onChange={(e)=>this.updateCart(e.target.value, product)}/>
+                                st
+                            </div>
+                        </td>
+                        <td>x</td>
+                        <td>{cart[product].price}kr</td>
+                        <td>=</td>
+                        <td className="priceTotalProd">{cart[product].price * cart[product].amount}kr</td>
+                        <td><b>X</b></td>
+                    </tr>
                 </tbody>
             )
         });
@@ -52,7 +63,13 @@ class ViewCart extends Component {
 
 function mapStateToProps(state) {
     return {
-        products: state.products
+        cart: state.cart
     };
 }
-export default connect(mapStateToProps)(ViewCart);
+function mapDispatchToProps(dispatch) {
+    return {
+        updateProdAmount: (value, key) => dispatch(cartActions.updateProdAmount(value, key)),
+        updateTotalPrice: () => dispatch(cartActions.updateTotalPrice())
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ViewCart);
