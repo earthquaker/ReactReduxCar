@@ -2,10 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import reducer from './reducers';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-
-const initialState = {
-    products: [{id:123, text:'hello', completed: false}]
-};
+import initialState from './initialState';
 
 export default createStore(
     reducer,

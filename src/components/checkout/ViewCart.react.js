@@ -1,7 +1,34 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class ViewCart extends Component {
+
     render() {
+
+        const mappedCart = this.props.products.map((product, index)=> {
+            return (
+                <tbody key={index}>
+                <tr>
+                    <td>
+                        <img src={product.image} alt="" width="120px" />
+                    </td>
+                    <td>{product.title}</td>
+                    <td>
+                        <div className="form-inline">
+                            <input type="number" className="form-control amount" placeholder="0" defaultValue={product.amount} />
+                            st
+                        </div>
+                    </td>
+                    <td>x</td>
+                    <td>{product.price}</td>
+                    <td>=</td>
+                    <td>{product.price * product.amount}</td>
+                    <td><b>X</b></td>
+                </tr>
+                </tbody>
+            )
+        });
+
         return (
             <div className="panel panel-default">
                 <div className="panel-heading">Granska din kundvagn (Måste hämtas i butik)</div>
@@ -9,42 +36,7 @@ class ViewCart extends Component {
                     <p>Din kundvagn innehåller antingen <b>reservdelar</b> eller produkter som vi klassar som <b>farliga</b>, <b>krymmande</b> eller <b>ömtåliga</b>. Din beställning måste därför hämtas ut i någon av våra butiker.</p>
 
                     <table className="table">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img src="https://www.royalcanin.com/~/media/Royal-Canin/Product-Categories/cat-breed-landing-hero.ashx" alt="" width="120px" />
-                                </td>
-                                <td>Product Text</td>
-                                <td>
-                                    <div className="form-inline">
-                                        <input type="number" className="form-control amount" id="exampleInputEmail1" placeholder="0" />
-                                        st
-                                    </div>
-                                </td>
-                                <td>x</td>
-                                <td>200kr</td>
-                                <td>=</td>
-                                <td>400kr</td>
-                                <td><b>X</b></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="https://www.royalcanin.com/~/media/Royal-Canin/Product-Categories/cat-breed-landing-hero.ashx" alt="" width="120px" />
-                                </td>
-                                <td>Product Text</td>
-                                <td>
-                                    <div className="form-inline">
-                                        <input type="number" className="form-control amount" id="exampleInputEmail1" placeholder="0" />
-                                        st
-                                    </div>
-                                </td>
-                                <td>x</td>
-                                <td>200kr</td>
-                                <td>=</td>
-                                <td>400kr</td>
-                                <td><b>X</b></td>
-                            </tr>
-                        </tbody>
+                        {mappedCart}
                     </table>
                 </div>
                 <div className="panel-footer">
@@ -58,4 +50,9 @@ class ViewCart extends Component {
     }
 }
 
-export default ViewCart;
+function mapStateToProps(state) {
+    return {
+        products: state.products
+    };
+}
+export default connect(mapStateToProps)(ViewCart);
